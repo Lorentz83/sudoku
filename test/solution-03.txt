@@ -1,0 +1,3 @@
+ sudokus analyzed 1
+ branches discarded 9
+ solutions found 0
