@@ -1,16 +1,23 @@
-all:sudoku
+CXXFLAGS = -Wall -O2
+
+all: sudoku
 
 sudoku: main.o sudoku.o
-	g++ -O -Wall main.o sudoku.o -o sudoku
+	$(CXX) main.o sudoku.o -o sudoku
 
 main.o: main.cpp
-	g++ -O -Wall -c main.cpp
+	$(CXX) $(CXXFLAGS) -c main.cpp
 
 sudoku.o: sudoku.cpp sudoku.h
-	g++ -O -Wall -c sudoku.cpp
+	$(CXX) $(CXXFLAGS) -c sudoku.cpp
+
+test: PHONY
+	test/testAll.sh
+
+PHONY:
 
 clean:
-	rm -f *.o 
+	$(RM) *.o 
 
 forceclean: clean
-	rm -f sudoku
+	$(RM) sudoku

@@ -1,23 +1,23 @@
 #include <iostream>
 #include "sudoku.h"
-#include<list>
+#include <list>
 
 using namespace std;
 
 int main(){
   sudoku s;
-  int searched=0;
-  int found=0;
-  int dropped=0;
+  int searched = 0;
+  int found = 0;
+  int dropped = 0;
   
-  cout<<"inserisci il sudoku: "<<endl<<
-    " usa 0 per indicare le celle vuote,"<<endl<<
-    " tutto ciò che non è cifra viene ignorato"<<endl;
+  cout<<"enter the sudoku: " << endl <<
+    " use 0 to mark empty cells, everything that is not a digit is ignored" << endl <<
+    " (i.e. you can freely use spaces or newlines to separate blocks)" << endl;
   cin>>s;
   
-  cout<<"il sudoku è:"<<endl<<s<<endl;
-  cout<<"è completo? "<< (s.isFull()?"SI":"NO")<<endl;
-  cout<<"è valido? "<< (s.isValid()?"SI":"NO")<<endl;
+  cout << "The sudoku is:" << endl << s << endl;
+  cout << "is completed? " << ( s.isFull() ? "YES" : "NO") << endl;
+  cout << "is valid? " << ( s.isValid() ? "YES" : "NO" ) << endl;
 
   list<sudoku> list;
   
@@ -27,27 +27,27 @@ int main(){
     sudoku tmp(list.front());
     list.pop_front();
     searched++;
-    if (tmp.isFull()){
-      cout<<"il sudoku trovato è:"<<endl<<tmp<<endl;
-      cout<<"è completo? "<< (tmp.isFull()?"SI":"NO")<<endl;
-      cout<<"è valido? "<< (tmp.isValid()?"SI":"NO")<<endl;
+    if ( tmp.isFull() ) {
+      cout << "Sudoku found:" << endl << tmp << endl;
+      cout << "is completed? " << ( tmp.isFull() ? "YES" : "NO" ) << endl;
+      cout << "is valid? "<< ( tmp.isValid() ? "YES" : "NO" ) << endl;
       found++;
     }
     int i,j;
-    if(tmp.getFirstEmpty(&i, &j))
-      for (int n=1;n<=9;n++){
+    if ( tmp.getFirstEmpty(&i, &j) ) {
+      for ( int n=1 ; n<=9 ; n++ ) {
 	sudoku t2(tmp);
-	if(t2.setVal(i,j,n))
+	if( t2.setVal(i,j,n) )
 	  list.push_front(t2);
 	else
 	  dropped++;
       }
-    
+    }
   }
-  cout<<"Fine analisi."<<endl;
-  cout<<"sudoku analizzati "<<searched<<endl;
-  cout<<"rami di ricerca scartati "<<dropped<<endl;
-  cout<<"soluzioni trovate "<<found<<endl;
-    
+  cout << "Analysis ended." << endl;
+  cout << " sudokus analyzed " << searched << endl;
+  cout << " branches discarded " << dropped << endl;
+  cout << " solutions found " << found << endl;
+  
   return 0;
 }
